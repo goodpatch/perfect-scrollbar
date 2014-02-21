@@ -276,6 +276,15 @@
           var deltaX = e.deltaX ? e.deltaX / 10 : deprecatedDeltaX,
               deltaY = e.deltaY ? e.deltaY / 10 : deprecatedDeltaY;
 
+          var $target = $(e.target);
+          while(!$target.hasClass('ps-container')) {
+            $target = $target.parent()
+          }
+          if ($target[0] != $this[0] && $target.scrollTop() != $target.data('last-scroll-top')){
+              $target.data('last-scroll-top', $target.scrollTop())
+              return
+          }
+
           if (!settings.useBothWheelAxes) {
             // deltaX will only be used for horizontal scrolling and deltaY will
             // only be used for vertical scrolling - this is the default
